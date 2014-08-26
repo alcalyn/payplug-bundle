@@ -21,6 +21,14 @@ class AlcalynPayplugExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
+        
+        foreach ($config['account'] as $key => $value) {
+            $container->setParameter('payplug.account.'.$key, $value);
+        }
+        
+        foreach ($config['class'] as $key => $value) {
+            $container->setParameter('payplug.class.'.$key, $value);
+        }
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

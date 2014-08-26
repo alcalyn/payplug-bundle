@@ -16,15 +16,6 @@ class PayplugIPNEvent extends PayplugEvent
     const PAYPLUG_IPN = 'event.payplug.ipn';
     
     /**
-     * Event throw on a mistaken IPN received.
-     * 
-     * The listener receive a PayplugIPNEvent event
-     * 
-     * @var string
-     */
-    const PAYPLUG_IPN_FAILED = 'event.payplug.ipn.failed';
-    
-    /**
      * @var IPN
      */
     private $ipn;

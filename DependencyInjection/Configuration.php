@@ -4,6 +4,8 @@ namespace Alcalyn\PayplugBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Alcalyn\PayplugBundle\Model\Payment;
+use Alcalyn\PayplugBundle\Model\IPN;
 
 /**
  * This is the class that validates and merges configuration from your app/config files
@@ -19,10 +21,27 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('alcalyn_payplug');
-
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        
+        $rootNode
+            ->children()
+            ->arrayNode('account')
+                ->children()
+                    ->scalarNode('url')->end()
+                    ->scalarNode('amount_min')->end()
+                    ->scalarNode('amount_max')->end()
+                    ->arrayNode('currencies')
+                        ->prototype('scalar')->end()
+                    ->end()
+                    ->scalarNode('payplugPublicKey')->end()
+                    ->scalarNode('yourPrivateKey')->end()
+                ->end()
+            ->end()
+            ->arrayNode('class')
+                ->children()
+                    ->scalarNode('ipn')->defaultValue(IPN::class)->end()
+                ->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }

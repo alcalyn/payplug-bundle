@@ -19,6 +19,20 @@ namespace Alcalyn\PayplugBundle\Model;
 class IPN extends Transaction
 {
     /**
+     * Value of field $state when payment is done
+     * 
+     * @var string
+     */
+    const PAYMENT_PAID = 'paid';
+    
+    /**
+     * Value of field $state when payment has been refunded
+     * 
+     * @var string
+     */
+    const PAYMENT_REFUNDED = 'refounded';
+    
+    /**
      * The new state of the transaction: 'paid' or 'refunded'.
      * 
      * @var string
@@ -32,8 +46,6 @@ class IPN extends Transaction
      * @var integer
      */
     private $idTransaction;
-
-
 
     /**
      * Set state
