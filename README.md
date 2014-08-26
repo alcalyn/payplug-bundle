@@ -41,9 +41,9 @@ public function registerBundles()
 
 ### Step 3: Configure the bundle and your account settings
 
-Add these lines to your app/config/config.yml:
+Add these lines to your **config.yml**:
 
-``` yml
+``` yaml
 # Payplug configuration
 alcalyn_payplug:
     account:
@@ -55,9 +55,9 @@ alcalyn_payplug:
         yourPrivateKey:     %payplug_account_yourPrivateKey%
 ```
 
-And in your parameters.yml.dist:
+And in your **parameters.yml.dist** (optional):
 
-``` yml
+``` yaml
     payplug_account_url:                ~
     payplug_account_amount_min:         ~
     payplug_account_amount_max:         ~
@@ -66,9 +66,9 @@ And in your parameters.yml.dist:
     payplug_account_yourPrivateKey:     ~
 ```
 
-And paste your account settings in your parameters.yml:
+And paste your account settings in your **parameters.yml**:
 
-``` yml
+``` yaml
     payplug_account_url: https://www.payplug.fr/p/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     payplug_account_amount_min: 1
     payplug_account_amount_max: 5000
@@ -93,11 +93,13 @@ And paste your account settings in your parameters.yml:
 
 > **Warning**:
 >
-> Be sure to never commit your account settings by commiting your parameters.yml
+> Be sure to never commit your account settings by commiting your **parameters.yml**
 
 Then get your account settings from this page
 (following [Payplug documentation](http://payplug-developer-documentation.readthedocs.org/en/latest/#configuration)):
+
 https://www.payplug.fr/portal/ecommerce/autoconfig
+
 (Your Payplug email and password will be prompted)
 
 
