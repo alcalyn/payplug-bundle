@@ -2,7 +2,7 @@
 
 namespace Alcalyn\PayplugBundle\Event;
 
-use Alcalyn\PayplugBundle\Entity\IPN;
+use Alcalyn\PayplugBundle\Model\IPN;
 
 class PayplugIPNEvent extends PayplugEvent
 {
@@ -22,7 +22,7 @@ class PayplugIPNEvent extends PayplugEvent
     private $ipn;
     
     /**
-     * @param \Alcalyn\PayplugBundle\Entity\IPN $ipn
+     * @param IPN $ipn
      */
     public function __construct(IPN $ipn)
     {

@@ -1,152 +1,74 @@
 <?php
 
-namespace Alcalyn\PayplugBundle\Entity;
-
-use Doctrine\ORM\Mapping as ORM;
+namespace Alcalyn\PayplugBundle\Model;
 
 /**
- * IPN
- *
- * @ORM\Table(name="payplug_ipn")
- * @ORM\Entity(repositoryClass="Alcalyn\PayplugBundle\Repository\IPNRepository")
+ * Transaction
+ * 
+ * Superclass containing fields which appear both in Payment and IPN classes.
  */
-class IPN
+class Transaction
 {
-    /**
+   /**
+     * Transaction amount, in cents (such as 4207 for 42,07€).
+     * 
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="state", type="string", length=31)
-     */
-    private $state;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_transaction", type="integer")
-     */
-    private $idTransaction;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="amount", type="integer")
      */
     private $amount;
 
     /**
+     * The customer’s email address, either provided when creating the payment URL
+     * or entered manually on the payment page by the customer.
+     * 
      * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
 
     /**
+     * The customer’s first name, either provided when creating the payment URL
+     * or entered manually on the payment page by the customer.
+     * 
      * @var string
-     *
-     * @ORM\Column(name="first_name", type="string", length=255)
      */
     private $firstName;
 
     /**
+     * The customer’s last name, either provided when creating the payment URL
+     * or entered manually on the payment page by the customer.
+     * 
      * @var string
-     *
-     * @ORM\Column(name="last_name", type="string", length=255)
      */
     private $lastName;
 
     /**
+     * Customer ID provided when creating the payment URL.
+     * 
      * @var string
-     *
-     * @ORM\Column(name="customer", type="string", length=255)
      */
     private $customer;
 
     /**
+     * Order ID provided when creating the payment URL.
+     * 
      * @var string
-     *
-     * @ORM\Column(name="order_", type="string", length=255)
      */
     private $order;
 
     /**
+     * Custom data provided when creating the payment URL.
+     * 
      * @var string
-     *
-     * @ORM\Column(name="custom_data", type="string", length=255)
      */
     private $customData;
 
     /**
+     * Information about your website version (e.g., ‘My Website 1.2 payplug_php0.9 PHP 5.3’),
+     * provided when creating the payment URL, with additional data sent by the library itself.
+     * 
      * @var string
-     *
-     * @ORM\Column(name="origin", type="string", length=255)
      */
     private $origin;
     
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set state
-     *
-     * @param string $state
-     * @return IPN
-     */
-    public function setState($state)
-    {
-        $this->state = $state;
-
-        return $this;
-    }
-
-    /**
-     * Get state
-     *
-     * @return string 
-     */
-    public function getState()
-    {
-        return $this->state;
-    }
-
-    /**
-     * Set idTransaction
-     *
-     * @param integer $idTransaction
-     * @return IPN
-     */
-    public function setIdTransaction($idTransaction)
-    {
-        $this->idTransaction = $idTransaction;
-
-        return $this;
-    }
-
-    /**
-     * Get idTransaction
-     *
-     * @return integer 
-     */
-    public function getIdTransaction()
-    {
-        return $this->idTransaction;
-    }
-
     /**
      * Set amount
      *

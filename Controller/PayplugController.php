@@ -5,7 +5,6 @@ namespace Alcalyn\PayplugBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Alcalyn\PayplugBundle\Event\PayplugIPNEvent;
 
 class PayplugController extends Controller
@@ -14,7 +13,8 @@ class PayplugController extends Controller
      * Script for Payplug IPN
      * 
      * @Route(
-     *      "payplug/ipn",
+     *      "payplug_ipn",
+     *      name = "payplug_ipn"
      *      requirements = {
      *          "_method" = "POST"
      *      }
@@ -22,16 +22,12 @@ class PayplugController extends Controller
      */
     public function ipnAction(Request $request)
     {
-        $signature = base64_decode($request->headers->get('payplug-signature'));
-        $body = $request->getContent();
-        
         $ipnService = $this->get('payplug.ipn');
-        $isSignatureValid = $ipnService->verifyIPN($body, $signature);
-        
         $eventDispatcher = $this->get('event_dispatcher');
+        $isSignatureValid = $ipnService->verifyIPNRequest($request);
         
         if ($isSignatureValid) {
-            $ipn = $ipnService->createIPNFromBody($body);
+            $ipn = $ipnService->createIPNFromBody($request->getContent());
             $event = new PayplugIPNEvent($ipn);
             $eventDispatcher->dispatch(PayplugIPNEvent::PAYPLUG_IPN, $event);
         } else {
