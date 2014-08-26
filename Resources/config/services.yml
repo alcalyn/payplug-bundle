@@ -1,0 +1,8 @@
+services:
+    payplug:
+        class: Alcalyn\PayplugBundle\Services\PayplugService
+        arguments: [%payplug.account.url%, %payplug.account.yourPrivateKey%]
+        
+    payplug.ipn:
+        class: Alcalyn\PayplugBundle\Services\PayplugIPNService
+        arguments: [%payplug.account.payplugPublicKey%]

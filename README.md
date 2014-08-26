@@ -1,4 +1,4 @@
-payplug-bundle
-==============
+AlcalynPayplugBundle
+====================
 
 Symfony2 bundle for Payplug
