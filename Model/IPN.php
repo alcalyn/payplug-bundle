@@ -6,6 +6,15 @@ namespace Alcalyn\PayplugBundle\Model;
  * IPN
  * 
  * IPN instance created when payplug send an IPN to your server.
+ * 
+ * @method IPN setAmount(integer $amount)
+ * @method IPN setEmail($email)
+ * @method IPN setFirstName($firstName)
+ * @method IPN setLastName($lastName)
+ * @method IPN setCustomer($customer)
+ * @method IPN setOrder($order)
+ * @method IPN setCustomData($customData)
+ * @method IPN setOrigin($origin)
  */
 class IPN extends Transaction
 {

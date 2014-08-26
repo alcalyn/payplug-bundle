@@ -7,9 +7,27 @@ namespace Alcalyn\PayplugBundle\Model;
  * 
  * Payment instance that you create
  * before redirect your customer to payplug payment page.
+ * 
+ * @method Payment setAmount(integer $amount)
+ * @method Payment setEmail($email)
+ * @method Payment setFirstName($firstName)
+ * @method Payment setLastName($lastName)
+ * @method Payment setCustomer($customer)
+ * @method Payment setOrder($order)
+ * @method Payment setCustomData($customData)
+ * @method Payment setOrigin($origin)
  */
 class Payment extends Transaction
 {
+    /**
+     * REQUIRED
+     * 
+     * Transaction currency. Only 'EUR' is allowed at the moment.
+     * 
+     * @var string
+     */
+    private $currency;
+    
     /**
      * REQUIRED
      * 
@@ -35,6 +53,29 @@ class Payment extends Transaction
      * @var string
      */
     private $cancelUrl;
+
+    /**
+     * Set currency
+     *
+     * @param string $currency
+     * @return Payment
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
+
+    /**
+     * Get currency
+     *
+     * @return string 
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
 
     /**
      * Set ipnUrl

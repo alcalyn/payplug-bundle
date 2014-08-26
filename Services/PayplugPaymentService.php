@@ -5,7 +5,7 @@ namespace Alcalyn\PayplugBundle\Services;
 use Symfony\Component\Routing\Router;
 use Alcalyn\PayplugBundle\Model\Payment;
 
-class PayplugService
+class PayplugPaymentService
 {
     /**
      * Payplug url from account configuration
@@ -36,7 +36,7 @@ class PayplugService
     {
         $this->baseUrl = $baseUrl;
         $this->privateKey = $privateKey;
-        $this->ipnUrl = $router->generate('payplug_ipn');
+        $this->ipnUrl = $router->generate('payplug_ipn', array(), true);
     }
     
     /**
