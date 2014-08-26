@@ -14,7 +14,7 @@ class PayplugController extends Controller
      * 
      * @Route(
      *      "payplug_ipn",
-     *      name = "payplug_ipn"
+     *      name = "payplug_ipn",
      *      requirements = {
      *          "_method" = "POST"
      *      }

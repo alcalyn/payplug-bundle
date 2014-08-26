@@ -9,7 +9,9 @@ namespace Alcalyn\PayplugBundle\Model;
  */
 class Transaction
 {
-   /**
+    /**
+     * REQUIRED
+     * 
      * Transaction amount, in cents (such as 4207 for 42,07€).
      * 
      * @var integer
@@ -73,7 +75,7 @@ class Transaction
      * Set amount
      *
      * @param integer $amount
-     * @return IPN
+     * @return Transaction
      */
     public function setAmount($amount)
     {
@@ -96,7 +98,7 @@ class Transaction
      * Set email
      *
      * @param string $email
-     * @return IPN
+     * @return Transaction
      */
     public function setEmail($email)
     {
@@ -119,7 +121,7 @@ class Transaction
      * Set firstName
      *
      * @param string $firstName
-     * @return IPN
+     * @return Transaction
      */
     public function setFirstName($firstName)
     {
@@ -142,7 +144,7 @@ class Transaction
      * Set lastName
      *
      * @param string $lastName
-     * @return IPN
+     * @return Transaction
      */
     public function setLastName($lastName)
     {
@@ -165,7 +167,7 @@ class Transaction
      * Set customer
      *
      * @param string $customer
-     * @return IPN
+     * @return Transaction
      */
     public function setCustomer($customer)
     {
@@ -188,7 +190,7 @@ class Transaction
      * Set order
      *
      * @param string $order
-     * @return IPN
+     * @return Transaction
      */
     public function setOrder($order)
     {
@@ -211,7 +213,7 @@ class Transaction
      * Set customData
      *
      * @param string $customData
-     * @return IPN
+     * @return Transaction
      */
     public function setCustomData($customData)
     {
@@ -234,7 +236,7 @@ class Transaction
      * Set origin
      *
      * @param string $origin
-     * @return IPN
+     * @return Transaction
      */
     public function setOrigin($origin)
     {

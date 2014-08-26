@@ -1,0 +1,3 @@
+payplug_controller:
+    resource: "@AlcalynPayplugBundle/Controller/PayplugController.php"
+    type:     annotation
