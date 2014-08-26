@@ -15,13 +15,28 @@ class PayplugIPNService
     private $payplugPublicKey;
     
     /**
+     * IPN class from configuration used to create ipn instance
+     * 
+     * @var string
+     */
+    private $ipnClass;
+    
+    /**
      * @param string $payplugPublicKey
      */
-    public function __construct($payplugPublicKey)
+    public function __construct($payplugPublicKey, $ipnClass)
     {
         $this->payplugPublicKey = $payplugPublicKey;
+        $this->ipnClass = $ipnClass;
     }
     
+    /**
+     * Verify ipn request validity
+     * 
+     * @param Request $request
+     * 
+     * @return boolean
+     */
     public function verifyIPNRequest(Request $request)
     {
         $signature = base64_decode($request->headers->get('payplug-signature'));
@@ -67,7 +82,7 @@ class PayplugIPNService
      */
     public function createIPNFromData($data)
     {
-        $ipn = new IPN();
+        $ipn = new $this->ipnClass();
         
         return $ipn
             ->setState($data->state)
