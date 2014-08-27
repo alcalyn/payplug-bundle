@@ -20,6 +20,13 @@ namespace Alcalyn\PayplugBundle\Model;
 class Payment extends Transaction
 {
     /**
+     * Currency euro
+     * 
+     * @var string
+     */
+    const EUROS = 'EUR';
+    
+    /**
      * REQUIRED
      * 
      * Transaction currency. Only 'EUR' is allowed at the moment.
@@ -53,7 +60,19 @@ class Payment extends Transaction
      * @var string
      */
     private $cancelUrl;
-
+    
+    /**
+     * @param integer Transaction amount, in cents (such as 4207 for 42,07€).
+     * @param string $currency Transaction currency
+     */
+    public function __construct($amount = 0, $currency = self::EUROS)
+    {
+        $this
+            ->setAmount($amount)
+            ->setCurrency($currency)
+        ;
+    }
+    
     /**
      * Set currency
      *
