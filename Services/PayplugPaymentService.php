@@ -4,6 +4,7 @@ namespace Alcalyn\PayplugBundle\Services;
 
 use Symfony\Component\Routing\Router;
 use Alcalyn\PayplugBundle\Model\Payment;
+use Alcalyn\PayplugBundle\Exceptions\PayplugUndefinedAccountParameterException;
 
 class PayplugPaymentService
 {
@@ -48,6 +49,14 @@ class PayplugPaymentService
      */
     public function generateUrl(Payment $payment)
     {
+        if (null === $this->privateKey) {
+            throw new PayplugUndefinedAccountParameterException('payplug_account_yourPrivateKey');
+        }
+        
+        if (null === $this->baseUrl) {
+            throw new PayplugUndefinedAccountParameterException('payplug_account_url');
+        }
+        
         // Create data parameter
         $params = $this->convertPaymentToArray($payment);
         $url_params = http_build_query($params);
