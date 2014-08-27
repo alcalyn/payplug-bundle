@@ -1,0 +1,14 @@
+Alcalyn\PayplugBundle\Model\IPN:
+    extendEntity: Alcalyn\PayplugBundle\Model\Transaction
+    type: mappedSuperclass
+    fields:
+        state:
+            type: string
+            column: state
+            length: 15
+            nullable: true
+        idTransaction:
+            type: integer
+            column: id_transaction
+            nullable: true
+            

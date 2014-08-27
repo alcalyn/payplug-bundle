@@ -2,6 +2,8 @@
 
 namespace Alcalyn\PayplugBundle\Model;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * IPN
  * 

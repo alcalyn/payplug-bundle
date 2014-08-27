@@ -1,5 +1,7 @@
 # Composer
 composer.phar
+composer.lock
 
 # Others
 *~
+nbproject
