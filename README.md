@@ -66,7 +66,12 @@ And in your **parameters.yml.dist** (optional):
     payplug_account_yourPrivateKey:     ~
 ```
 
-And paste your account settings in your **parameters.yml**:
+Then, following [Payplug documentation](http://payplug-developer-documentation.readthedocs.org/en/latest/#configuration)),
+get your **account settings** from this page:<br />
+https://www.payplug.fr/portal/ecommerce/autoconfig<br />
+(*Your Payplug email and password will be prompted*)
+
+And set them in your **parameters.yml**:
 
 ``` yaml
     payplug_account_url: https://www.payplug.fr/p/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -95,12 +100,68 @@ And paste your account settings in your **parameters.yml**:
 >
 > Be sure to never commit your account settings by commiting your **parameters.yml**
 
-Then get your account settings from this page
-(following [Payplug documentation](http://payplug-developer-documentation.readthedocs.org/en/latest/#configuration)):
 
-https://www.payplug.fr/portal/ecommerce/autoconfig
+## Basic usage:
 
-(Your Payplug email and password will be prompted)
+### Generating payment url:
+
+``` php
+use Alcalyn\PayplugBundle\Model\Payment;
+
+// ...
+
+    public function wtfAction()
+    {
+        // Create a payment of 16 €
+        $payment = new Payment(1600, Payment::EUROS);
+
+        // Get Payplug payment service
+        $payplugPayment = $this->get('payplug.payment');
+
+        // Generate url
+        $payplugPayment->generateUrl($payment); // returns "https://www.payplug.fr/p/aca8...ef?data=...&sign=..."
+    }
+```
+
+
+### Treat IPNs
+
+AlcalynPayplugBundle dispatch "**event.payplug.ipn**"
+[event](http://symfony.com/doc/current/components/event_dispatcher/introduction.html).<br />
+So listen it like that:
+
+Create the listener class:
+``` php
+// src/Acme/AcmeBundle/EventListener/PaymentListener.php
+
+namespace Acme\AcmeBundle\EventListener;
+
+use Alcalyn\PayplugBundle\Event\PayplugIPNEvent;
+
+class PaymentListener
+{
+    /**
+     * @param PayplugIPNEvent $event
+     */
+    public function onPayment(PayplugIPNEvent $event)
+    {
+        $ipn = $event->getIPN();
+
+        // treat $ipn
+    }
+}
+```
+
+Register your listener:
+``` yaml
+# src/Acme/AcmeBundle/Resources/services.yml
+services:
+    acme.listeners.payment:
+        class: Acme\AcmeBundle\EventListener\PaymentListener
+        tags:
+            - { name: kernel.event_listener, event: event.payplug.ipn, method: onPayment }
+```
+
 
 
 ## License
