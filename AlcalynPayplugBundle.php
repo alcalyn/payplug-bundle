@@ -12,13 +12,23 @@ class AlcalynPayplugBundle extends Bundle
     {
         parent::build($container);
 
+        $this->registerDoctrineMapping($container);
+    }
+    
+    /**
+     * Import doctrine mapping located in Resources/config/doctrine/model
+     * 
+     * @param ContainerBuilder $container
+     */
+    private function registerDoctrineMapping(ContainerBuilder $container)
+    {
         $modelDir = realpath(__DIR__.'/Resources/config/doctrine/model');
         $mappings = array(
             $modelDir => 'Alcalyn\PayplugBundle\Model',
         );
 
         $ormCompilerClass = 'Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass';
-        if (true || class_exists($ormCompilerClass)) {
+        if (class_exists($ormCompilerClass)) {
             $container->addCompilerPass(
                 DoctrineOrmMappingsPass::createYamlMappingDriver(
                     $mappings
