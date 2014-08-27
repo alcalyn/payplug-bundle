@@ -7,7 +7,7 @@ namespace Alcalyn\PayplugBundle\Model;
  * 
  * Superclass containing fields which appear both in Payment and IPN classes.
  */
-class Transaction
+abstract class Transaction
 {
     /**
      * REQUIRED

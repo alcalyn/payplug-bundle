@@ -1,0 +1,42 @@
+Alcalyn\PayplugBundle\Model\Transaction:
+    type: mappedSuperclass
+    fields:
+        amount:
+            type: integer
+            column: amount
+            nullable: true
+        email:
+            type: string
+            column: email
+            length: 127
+            nullable: true
+        firstName:
+            type: string
+            column: first_name
+            length: 255
+            nullable: true
+        lastName:
+            type: string
+            column: last_name
+            length: 255
+            nullable: true
+        customer:
+            type: string
+            column: customer
+            length: 31
+            nullable: true
+        order:
+            type: string
+            column: order_
+            length: 31
+            nullable: true
+        customData:
+            type: string
+            column: custom_data
+            length: 511
+            nullable: true
+        origin:
+            type: string
+            column: origin
+            length: 511
+            nullable: true
