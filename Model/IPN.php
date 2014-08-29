@@ -94,4 +94,12 @@ class IPN extends Transaction
     {
         return $this->idTransaction;
     }
+    
+    /**
+     * @return string
+     */
+    public static function getClassName()
+    {
+        return __CLASS__;
+    }
 }
