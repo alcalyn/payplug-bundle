@@ -76,25 +76,25 @@ class PayplugIPNService
     /**
      * Build IPN instance from array
      * 
-     * @param object $data
+     * @param array $data
      * 
      * @return IPN
      */
-    public function createIPNFromData($data)
+    public function createIPNFromData(array $data)
     {
         $ipn = new $this->ipnClass();
         
         return $ipn
-            ->setState($data->state)
-            ->setIdTransaction($data->id_transaction)
-            ->setAmount($data->amount)
-            ->setEmail($data->email)
-            ->setFirstName($data->first_name)
-            ->setLastName($data->last_name)
-            ->setCustomer($data->customer)
-            ->setOrder($data->order)
-            ->setCustomData($data->custom_data)
-            ->setOrigin($data->origin)
+            ->setState($data['state'])
+            ->setIdTransaction($data['id_transaction'])
+            ->setAmount($data['amount'])
+            ->setEmail($data['email'])
+            ->setFirstName($data['first_name'])
+            ->setLastName($data['last_name'])
+            ->setCustomer($data['customer'])
+            ->setOrder($data['order'])
+            ->setCustomData($data['custom_data'])
+            ->setOrigin($data['origin'])
         ;
     }
 }
