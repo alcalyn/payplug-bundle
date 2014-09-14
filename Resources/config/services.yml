@@ -5,4 +5,4 @@ services:
         
     payplug.ipn:
         class: Alcalyn\PayplugBundle\Services\PayplugIPNService
-        arguments: [%payplug.account.payplugPublicKey%]
+        arguments: [%payplug.account.payplugPublicKey%, %payplug.class.ipn%]
