@@ -37,6 +37,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
             ->arrayNode('class')
+                ->addDefaultsIfNotSet()
                 ->children()
                     ->scalarNode('ipn')->defaultValue(IPN::getClassName())->end()
                 ->end()
