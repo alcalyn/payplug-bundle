@@ -6,3 +6,14 @@ services:
     payplug.ipn:
         class: Alcalyn\PayplugBundle\Services\PayplugIPNService
         arguments: [%payplug.account.payplugPublicKey%, %payplug.class.ipn%]
+        
+    payplug.account_loader:
+        class: Alcalyn\PayplugBundle\Services\PayplugAccountLoader
+        arguments: [%kernel.root_dir%]
+
+    payplug.command.account_loader:
+        class: Alcalyn\PayplugBundle\Command\AccountLoaderCommand
+        tags:
+            -  { name: console.command }
+        calls:
+            - [setContainer, ["@service_container"]]
