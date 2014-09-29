@@ -55,7 +55,7 @@ alcalyn_payplug:
         yourPrivateKey:     %payplug_account_yourPrivateKey%
 ```
 
-And in your **parameters.yml.dist** (optional):
+And theses lines into **parameters.yml**, and optionally into **parameters.yml.dist**:
 
 ``` yaml
     payplug_account_url:                ~
@@ -66,35 +66,19 @@ And in your **parameters.yml.dist** (optional):
     payplug_account_yourPrivateKey:     ~
 ```
 
-Then, following [Payplug documentation](http://payplug-developer-documentation.readthedocs.org/en/latest/#configuration)),
-get your **account settings** from this page:<br />
-https://www.payplug.fr/portal/ecommerce/autoconfig<br />
+Then run this command to load your Payplug account settings following
+[Payplug documentation](http://payplug-developer-documentation.readthedocs.org/en/latest/#configuration):
+
+``` bash
+php app/console payplug:account:update
+```
+
 (*Your Payplug email and password will be prompted*)
 
-And set them in your **parameters.yml**:
+This command uses curl to load your account parameters from https://www.payplug.fr/portal/ecommerce/autoconfig
 
-``` yaml
-    payplug_account_url: https://www.payplug.fr/p/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    payplug_account_amount_min: 1
-    payplug_account_amount_max: 5000
-    payplug_account_currencies: [ EUR ]
-
-    payplug_account_payplugPublicKey: |
-        -----BEGIN PUBLIC KEY-----
-        MIIBIjANBdkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtN4dpK368PEEYKeee7S5
-        [ ... ]
-        zQIDAQAB
-        -----END PUBLIC KEY-----
-
-    payplug_account_yourPrivateKey: |
-        -----BEGIN RSA PRIVATE KEY-----
-        MIIEowIBAAKCAQEAnw1BPxsN18XyhsIdFpE/lMoWepZpv3RY8W+mhVo0tDk+ayBs
-        [ ... ]
-        [ ... ]
-        [ ... ]
-        ccNd8YfoF1lBwj9itP+PBCwXvAlAdDmzlySdDCc7UpSgnD798m4m
-        -----END RSA PRIVATE KEY-----
-```
+If the command fails, go to [the Payplug autoconfig page](https://www.payplug.fr/portal/ecommerce/autoconfig)
+and copy/paste your parameters manually.
 
 > **Warning**:
 >
