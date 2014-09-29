@@ -25,7 +25,7 @@ class AlcalynPayplugExtension extends Extension
         foreach ($config['account'] as $key => $value) {
             $container->setParameter('payplug.account.'.$key, $value);
         }
-
+        
         foreach ($config['class'] as $key => $value) {
             $container->setParameter('payplug.class.'.$key, $value);
         }
