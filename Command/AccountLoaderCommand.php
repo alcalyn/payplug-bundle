@@ -2,20 +2,34 @@
 
 namespace Alcalyn\PayplugBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Alcalyn\PayplugBundle\Exceptions\PayplugException;
+use Alcalyn\PayplugBundle\Services\PayplugAccountLoader;
 
-class AccountLoaderCommand extends ContainerAwareCommand
+class AccountLoaderCommand extends Command
 {
+    /**
+     * @var PayplugAccountLoader
+     */
+    private $payplugAccountLoader;
+    
+    /**
+     * @param PayplugAccountLoader $payplugAccountLoader
+     */
+    public function __construct(PayplugAccountLoader $payplugAccountLoader)
+    {
+        parent::__construct();
+        
+        $this->payplugAccountLoader = $payplugAccountLoader;
+    }
+    
     protected function configure()
     {
         $this
             ->setName('payplug:account:update')
-            ->setDescription('Update your Payplug account parameters and set them in your parameters.yml')
+            ->setDescription('Update your Payplug account parameters and set them into your parameters.yml')
         ;
     }
 
@@ -34,19 +48,17 @@ class AccountLoaderCommand extends ContainerAwareCommand
             $output,
             'Payplug account pass: '
         );
-        
-        $payplugAccountLoader = $this->getContainer()->get('payplug.account_loader');
 
         try {
             $output->writeLn('');
             $output->writeLn('Requesting Payplug...');
             $output->writeLn('');
             
-            $payplugAccountLoader->loadPayplugParameters($mail, $pass);
+            $this->payplugAccountLoader->loadPayplugParameters($mail, $pass);
             
-            $output->writeLn('Parameters successfully loaded.');
+            $output->writeLn('[OK] Parameters successfully loaded.');
         } catch (PayplugException $e) {
-            $output->writeLn($e->getMessage());
+            $output->writeLn('[FAIL] '.$e->getMessage());
         }
     }
 }

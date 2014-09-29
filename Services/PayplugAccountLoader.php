@@ -8,15 +8,36 @@ use Alcalyn\PayplugBundle\Exceptions\PayplugException;
 
 class PayplugAccountLoader
 {
+    /**
+     * Url of Payplug account autoconfig
+     * 
+     * @var string
+     */
     const PAYPLUG_AUTOCONFIG_URL = 'https://www.payplug.fr/portal/ecommerce/autoconfig';
     
+    /**
+     * Kernel root dir
+     * 
+     * @var string
+     */
     private $rootDir;
     
+    /**
+     * @param string $rootDir
+     */
     public function __construct($rootDir)
     {
         $this->rootDir = $rootDir;
     }
     
+    /**
+     * Load Payplug account parameters and set them into parameters.yml
+     * 
+     * @param string $mail
+     * @param string $pass
+     * 
+     * @throws PayplugException on curl or authentication error
+     */
     public function loadPayplugParameters($mail, $pass)
     {
         $result = $this->curlPayplugRequest($mail, $pass);
@@ -42,6 +63,15 @@ class PayplugAccountLoader
         $this->editParameters($payplugAccount);
     }
     
+    /**
+     * Make a curl authenticated request to Payplug to get account parameters.
+     * Warning: CURLOPT_SSL_VERIFYPEER set to false, so there is not TLS certificate check.
+     * 
+     * @param string $mail
+     * @param string $pass
+     * 
+     * @throws PayplugException on curl error
+     */
     public function curlPayplugRequest($mail, $pass)
     {
         $options = array(
@@ -62,7 +92,12 @@ class PayplugAccountLoader
         return $result;
     }
     
-    public function editParameters($payplugAccount)
+    /**
+     * Add or edit parameters in parameters.yml
+     * 
+     * @param array $parametersArray
+     */
+    public function editParameters(array $parametersArray)
     {
         $parametersFile = $this->rootDir.'../config/parameters.yml';
         
@@ -70,11 +105,18 @@ class PayplugAccountLoader
         $dumper = new Dumper();
         
         $parameters = $parser->parse(file_get_contents($parametersFile));
-        $newFileContent = $dumper->dump(array_replace_recursive($parameters, $payplugAccount), 2);
+        $newFileContent = $dumper->dump(array_replace_recursive($parameters, $parametersArray), 2);
         
         file_put_contents($parametersFile, $newFileContent);
     }
     
+    /**
+     * Return a detailled error message from status code
+     * 
+     * @param int $status
+     * 
+     * @return string
+     */
     public function errorStatusResolver($status)
     {
         switch ($status) {

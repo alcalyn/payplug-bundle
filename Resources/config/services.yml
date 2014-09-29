@@ -13,7 +13,6 @@ services:
 
     payplug.command.account_loader:
         class: Alcalyn\PayplugBundle\Command\AccountLoaderCommand
+        arguments: [@payplug.account_loader]
         tags:
             -  { name: console.command }
-        calls:
-            - [setContainer, ["@service_container"]]
