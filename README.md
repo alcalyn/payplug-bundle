@@ -29,13 +29,13 @@ php composer.phar update
 <?php
 // app/AppKernel.php
 
-public function registerBundles()
-{
-    $bundles = array(
-        // ...
-        new Alcalyn\PayplugBundle\AlcalynPayplugBundle(),
-    );
-}
+    public function registerBundles()
+    {
+        $bundles = array(
+            // ...
+            new Alcalyn\PayplugBundle\AlcalynPayplugBundle(),
+        );
+    }
 ```
 
 
@@ -83,6 +83,20 @@ and copy/paste your parameters manually.
 > **Warning**:
 >
 > Be sure to never commit your account settings by commiting your **parameters.yml**
+
+
+### Step 4: Import Payplug IPN route
+
+To process IPNs, the bundle need to have its routes enabled.
+
+Add this to **app/config/routing.yml**:
+
+``` yml
+# Payplug routing
+alcalyn_payplug:
+    resource: "@AlcalynPayplugBundle/Resources/config/routing.yml"
+    prefix:   /
+```
 
 
 ## Basic usage:
