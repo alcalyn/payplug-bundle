@@ -161,6 +161,11 @@ services:
 ```
 
 
+## Advanced usage:
+
+ - [Extend IPN class](https://github.com/alcalyn/payplug-bundle/blob/master/Resources/doc/extend_ipn.md)
+ - [Listen to malformed IPN](https://github.com/alcalyn/payplug-bundle/blob/master/Resources/doc/malformed_ipn.md)
+
 
 ## License
 
