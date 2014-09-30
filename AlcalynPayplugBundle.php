@@ -31,12 +31,9 @@ class AlcalynPayplugBundle extends Bundle
         );
 
         $ormCompilerClass = 'Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass';
-        if (class_exists($ormCompilerClass)) 
-        {
+        if (class_exists($ormCompilerClass)) {
             $container->addCompilerPass(DoctrineOrmMappingsPass::createYamlMappingDriver($mappings));
-        } 
-        else 
-        {
+        } else {
             $container->addCompilerPass(RegisterMappingsPass::createOrmMappingDriver($mappings));
         }
     }
