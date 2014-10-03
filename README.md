@@ -1,7 +1,7 @@
 AlcalynPayplugBundle
 ====================
 
-[Payplug](https://www.payplug.fr/) integration for symfony2
+[Payplug](https://www.payplug.fr/) integration for symfony2.
 
 ## Installation
 
@@ -39,7 +39,21 @@ php composer.phar update
 ```
 
 
-### Step 3: Configure the bundle and your account settings
+### Step 3: Import Payplug IPN route
+
+To create payments and process IPNs, the bundle need to have its routes enabled.
+
+Add this to **app/config/routing.yml**:
+
+``` yml
+# Payplug routing
+alcalyn_payplug:
+    resource: "@AlcalynPayplugBundle/Resources/config/routing.yml"
+    prefix:   /
+```
+
+
+### Step 4: Configure the bundle and your account settings
 
 Add these lines to your **config.yml**:
 
@@ -66,8 +80,7 @@ And theses lines into **parameters.yml**, and optionally into **parameters.yml.d
     payplug_account_yourPrivateKey:     ~
 ```
 
-Then run this command to load your Payplug account settings following
-[Payplug documentation](http://payplug-developer-documentation.readthedocs.org/en/latest/#configuration):
+Then run this command to load your Payplug account settings:
 
 ``` bash
 php app/console payplug:account:update
@@ -75,28 +88,23 @@ php app/console payplug:account:update
 
 (*Your Payplug email and password will be prompted*)
 
-This command uses curl to load your account parameters from https://www.payplug.fr/portal/ecommerce/autoconfig
-
-If the command fails, go to [the Payplug autoconfig page](https://www.payplug.fr/portal/ecommerce/autoconfig)
-and copy/paste your parameters manually.
 
 > **Warning**:
 >
 > Be sure to never commit your account settings by commiting your **parameters.yml**
 
+See [Payplug documentation](http://payplug-developer-documentation.readthedocs.org/en/latest/#configuration)
+for more informations about account configuration.
 
-### Step 4: Import Payplug IPN route
-
-To process IPNs, the bundle need to have its routes enabled.
-
-Add this to **app/config/routing.yml**:
-
-``` yml
-# Payplug routing
-alcalyn_payplug:
-    resource: "@AlcalynPayplugBundle/Resources/config/routing.yml"
-    prefix:   /
-```
+> **Note**:
+>
+> This command uses curl to load your account parameters from https://www.payplug.fr/portal/ecommerce/autoconfig
+>
+> **If the command fails**, go to https://www.payplug.fr/portal/ecommerce/autoconfig
+> and copy/paste your parameters manually.
+>
+> Your parameters.yml should looks like this:
+> [parameters.yml.example](https://github.com/alcalyn/payplug-bundle/blob/master/Resources/doc/parameters.yml.example)
 
 
 ## Basic usage:
@@ -124,11 +132,14 @@ use Alcalyn\PayplugBundle\Model\Payment;
 
 ### Treat IPNs
 
-AlcalynPayplugBundle dispatch "**event.payplug.ipn**"
-[event](http://symfony.com/doc/current/components/event_dispatcher/introduction.html).<br />
+AlcalynPayplugBundle dispatches
+[PayplugIPNEvent](https://github.com/alcalyn/payplug-bundle/blob/master/Event/PayplugIPNEvent.php)
+when an IPN is received.
+
 So listen it like that:
 
 Create the listener class:
+
 ``` php
 // src/Acme/AcmeBundle/EventListener/PaymentListener.php
 
@@ -151,6 +162,7 @@ class PaymentListener
 ```
 
 Register your listener:
+
 ``` yaml
 # src/Acme/AcmeBundle/Resources/services.yml
 services:
