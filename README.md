@@ -1,7 +1,7 @@
 AlcalynPayplugBundle
 ====================
 
-[Payplug](https://www.payplug.fr/) integration for symfony2.
+[Payplug](https://www.payplug.fr/) integration to symfony2.
 
 ## Installation
 
@@ -11,7 +11,7 @@ AlcalynPayplugBundle
 ``` js
 {
     "require": {
-        "alcalyn/payplug-bundle": "0.x"
+        "alcalyn/payplug-bundle": "1.x"
     }
 }
 ```
