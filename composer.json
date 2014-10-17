@@ -11,6 +11,7 @@
             "email": "doubjulien@hotmail.fr"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.2",
         "symfony/framework-bundle": "~2.1"

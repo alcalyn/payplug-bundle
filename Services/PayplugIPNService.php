@@ -56,7 +56,7 @@ class PayplugIPNService
     public function verifyIPN($body, $signature)
     {
         $publicKey = openssl_pkey_get_public($this->payplugPublicKey);
-        return openssl_verify($body, $signature, $publicKey, OPENSSL_ALGO_SHA1);
+        return 1 === openssl_verify($body, $signature, $publicKey, OPENSSL_ALGO_SHA1);
     }
     
     /**

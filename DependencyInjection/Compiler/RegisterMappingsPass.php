@@ -9,12 +9,38 @@ use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 
 class RegisterMappingsPass implements CompilerPassInterface
 {
+    /**
+     * @var Definition|Reference
+     */
     private $driver;
+    
+    /**
+     * @var string
+     */
     private $driverPattern;
+    
+    /**
+     * @var array
+     */
     private $namespaces;
+    
+    /**
+     * @var array
+     */
     private $managerParameters;
+    
+    /**
+     * @var mixed false or parameter name
+     */
     private $enabledParameter;
 
+    /**
+     * @param Definition $driver
+     * @param string $driverPattern
+     * @param array $namespaces
+     * @param string[] $managerParameters
+     * @param mixed $enabledParameter
+     */
     public function __construct($driver, $driverPattern, $namespaces, $managerParameters, $enabledParameter = false)
     {
         $this->driver = $driver;
@@ -24,6 +50,9 @@ class RegisterMappingsPass implements CompilerPassInterface
         $this->enabledParameter = $enabledParameter;
     }
 
+    /**
+     * @param ContainerBuilder $container
+     */
     public function process(ContainerBuilder $container)
     {
         if ($this->enabledParameter && !$container->hasParameter($this->enabledParameter)) {
@@ -37,6 +66,13 @@ class RegisterMappingsPass implements CompilerPassInterface
         }
     }
 
+    /**
+     * @param ContainerBuilder $container
+     * 
+     * @return string
+     * 
+     * @throws ParameterNotFoundException
+     */
     protected function getChainDriverServiceName(ContainerBuilder $container)
     {
         foreach ($this->managerParameters as $param) {
@@ -51,6 +87,11 @@ class RegisterMappingsPass implements CompilerPassInterface
         throw new ParameterNotFoundException('None of the managerParameters resulted in a valid name');
     }
 
+    /**
+     * @param array $mappings
+     * 
+     * @return \Alcalyn\PayplugBundle\DependencyInjection\Compiler\RegisterMappingsPass
+     */
     public static function createOrmMappingDriver(array $mappings)
     {
         $arguments = array($mappings, '.orm.yml');
