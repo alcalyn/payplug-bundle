@@ -30,16 +30,16 @@ class RegisterMappingsPass implements CompilerPassInterface
     private $managerParameters;
     
     /**
-     * @var boolean
+     * @var mixed false or parameter name
      */
     private $enabledParameter;
 
     /**
-     * @param Definition|Reference $driver
+     * @param Definition $driver
      * @param string $driverPattern
      * @param array $namespaces
-     * @param array $managerParameters
-     * @param boolean $enabledParameter
+     * @param string[] $managerParameters
+     * @param mixed $enabledParameter
      */
     public function __construct($driver, $driverPattern, $namespaces, $managerParameters, $enabledParameter = false)
     {
