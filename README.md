@@ -3,6 +3,8 @@ AlcalynPayplugBundle
 
 [Payplug](https://www.payplug.fr/) integration to symfony2.
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/5db1af60-63e4-40a6-bb5a-671725d9ac73/mini.png)](https://insight.sensiolabs.com/projects/5db1af60-63e4-40a6-bb5a-671725d9ac73)
+
 ## Installation
 
 
