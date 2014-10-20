@@ -3,6 +3,11 @@ AlcalynPayplugBundle
 
 [Payplug](https://www.payplug.fr/) integration to symfony2.
 
+[![Latest Stable Version](https://poser.pugx.org/alcalyn/payplug-bundle/v/stable.svg)](https://packagist.org/packages/alcalyn/payplug-bundle)
+<!-- [![Total Downloads](https://poser.pugx.org/alcalyn/payplug-bundle/downloads.svg)](https://packagist.org/packages/alcalyn/payplug-bundle) -->
+[![Latest Unstable Version](https://poser.pugx.org/alcalyn/payplug-bundle/v/unstable.svg)](https://packagist.org/packages/alcalyn/payplug-bundle)
+[![License](https://poser.pugx.org/alcalyn/payplug-bundle/license.svg)](https://packagist.org/packages/alcalyn/payplug-bundle)
+
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alcalyn/payplug-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/alcalyn/payplug-bundle/?branch=master)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/5db1af60-63e4-40a6-bb5a-671725d9ac73/mini.png)](https://insight.sensiolabs.com/projects/5db1af60-63e4-40a6-bb5a-671725d9ac73)
 
