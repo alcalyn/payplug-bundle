@@ -1,0 +1,11 @@
+parameters:
+    # [...]
+    payplug_account_url: 'https://www.payplug.fr/p/aca9...312'
+    payplug_account_amount_min: 1
+    payplug_account_amount_max: 5000
+    payplug_account_currencies: [EUR]
+    payplug_account_payplugPublicKey: "-----BEGIN PUBLIC KEY-----\nMbIBIjANBgkqhkiG9b0BAQEFAAOCAQ8bMIIBCgKCAQEAtN4dpK368PbEYKeee7S5\n1m2a [...] Z6pnK\nzQIDbQAB\n-----END PUBLIC KEY-----\n"
+    payplug_account_yourPrivateKey: "-----BEGIN RSA PRIVATE KEY-----\nMIIhowIBAhKCAQEAnw1BPxsN1hXyhsIdFpE/lMoWepZjujuY8W+mhVo0tDk+ahBs\n6 [...] itP+PBCwXvAoAdDmzlySdDCc7UpSgnD798m7m\n-----END RSA PRIVATE KEY-----"
+
+    payplug_sandbox_account_url: 'https://www.payplug.fr/p/test/vwFP'
+    payplug_sandbox_account_yourPrivateKey: "-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEA8uYe0JFjbqddcQ7YWXznT2vvzqdQKghUJ36cCKhs5wM [...] N8wz1KzP3kMXl47C4wOCsjIlSwSzi45r4nQ==\n-----END RSA PRIVATE KEY-----"
