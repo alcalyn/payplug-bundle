@@ -20,3 +20,9 @@ services:
         arguments: [@payplug.account_loader]
         tags:
             -  { name: console.command }
+
+    payplug.command.generate_url:
+        class: Alcalyn\PayplugBundle\Command\GenerateUrlCommand
+        arguments: [@payplug.payment, @payplug.payment.test]
+        tags:
+            -  { name: console.command }

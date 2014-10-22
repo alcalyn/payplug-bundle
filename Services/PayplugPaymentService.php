@@ -72,6 +72,16 @@ class PayplugPaymentService
     }
     
     /**
+     * Return default ipn url used by the bundle (Something like "http://yoursite.com/payplug_ipn").
+     * 
+     * @return string
+     */
+    public function getIpnUrl()
+    {
+        return $this->ipnUrl;
+    }
+    
+    /**
      * @param \Alcalyn\PayplugBundle\Model\Payment $payment
      * 
      * @return array

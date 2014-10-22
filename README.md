@@ -188,6 +188,7 @@ services:
  - [Use TEST mode](https://github.com/alcalyn/payplug-bundle/blob/master/Resources/doc/test_mode.md)
  - [Extend IPN class](https://github.com/alcalyn/payplug-bundle/blob/master/Resources/doc/extend_ipn.md)
  - [Listen to malformed IPN](https://github.com/alcalyn/payplug-bundle/blob/master/Resources/doc/malformed_ipn.md)
+ - [Generate payment Url from command](https://github.com/alcalyn/payplug-bundle/blob/master/Resources/doc/generate_url_command.md)
 
 
 ## License
