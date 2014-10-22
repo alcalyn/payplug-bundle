@@ -23,6 +23,8 @@ class Configuration implements ConfigurationInterface
         
         $rootNode
             ->children()
+            
+            // Payplug account parameters
             ->arrayNode('account')
                 ->children()
                     ->scalarNode('url')->end()
@@ -35,6 +37,21 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('yourPrivateKey')->end()
                 ->end()
             ->end()
+            
+            // Sandbox parameters
+            ->arrayNode('sandbox')
+                ->addDefaultsIfNotSet()
+                ->children()
+                    ->arrayNode('account')
+                        ->children()
+                            ->scalarNode('url')->defaultNull()->end()
+                            ->scalarNode('yourPrivateKey')->defaultNull()->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+            
+            // Entities classes to use
             ->arrayNode('class')
                 ->addDefaultsIfNotSet()
                 ->children()

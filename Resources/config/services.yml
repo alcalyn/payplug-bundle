@@ -3,6 +3,10 @@ services:
         class: Alcalyn\PayplugBundle\Services\PayplugPaymentService
         arguments: [%payplug.account.url%, %payplug.account.yourPrivateKey%, @router]
         
+    payplug.payment.test:
+        class: Alcalyn\PayplugBundle\Services\PayplugPaymentService
+        arguments: [%payplug.sandbox.account.url%, %payplug.sandbox.account.yourPrivateKey%, @router]
+        
     payplug.ipn:
         class: Alcalyn\PayplugBundle\Services\PayplugIPNService
         arguments: [%payplug.account.payplugPublicKey%, %payplug.class.ipn%]

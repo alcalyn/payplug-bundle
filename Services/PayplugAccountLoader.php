@@ -16,6 +16,13 @@ class PayplugAccountLoader
     const PAYPLUG_AUTOCONFIG_URL = 'https://www.payplug.fr/portal/ecommerce/autoconfig';
     
     /**
+     * Url of Payplug test account autoconfig
+     * 
+     * @var string
+     */
+    const PAYPLUG_AUTOCONFIG_URL_TEST = 'https://www.payplug.fr/portal/test/ecommerce/autoconfig';
+    
+    /**
      * Kernel root dir
      * 
      * @var string
@@ -35,12 +42,13 @@ class PayplugAccountLoader
      * 
      * @param string $mail
      * @param string $pass
+     * @param boolean $test
      * 
      * @throws PayplugException on curl or authentication error
      */
-    public function loadPayplugParameters($mail, $pass)
+    public function loadPayplugParameters($mail, $pass, $test = false)
     {
-        $result = $this->curlPayplugRequest($mail, $pass);
+        $result = $this->curlPayplugRequest($mail, $pass, $test);
         
         $params = json_decode($result);
         $status = intval($params->status);
@@ -56,8 +64,13 @@ class PayplugAccountLoader
         
         $payplugAccount = array();
         
-        foreach ($params as $key => $value) {
-            $payplugAccount['parameters']['payplug_account_'.$key] = $value;
+        if ($test) {
+            $payplugAccount['parameters']['payplug_sandbox_account_url'] = $params->url;
+            $payplugAccount['parameters']['payplug_sandbox_account_yourPrivateKey'] = $params->yourPrivateKey;
+        } else {
+            foreach ($params as $key => $value) {
+                $payplugAccount['parameters']['payplug_account_'.$key] = $value;
+            }
         }
         
         $this->editParameters($payplugAccount);
@@ -69,10 +82,11 @@ class PayplugAccountLoader
      * 
      * @param string $mail
      * @param string $pass
+     * @param boolean $test
      * 
      * @throws PayplugException on curl error
      */
-    public function curlPayplugRequest($mail, $pass)
+    public function curlPayplugRequest($mail, $pass, $test = false)
     {
         $options = array(
             CURLOPT_RETURNTRANSFER => true,
@@ -81,7 +95,7 @@ class PayplugAccountLoader
             CURLOPT_SSL_VERIFYPEER => false,
         );
         
-        $curl = curl_init(self::PAYPLUG_AUTOCONFIG_URL);
+        $curl = curl_init($this->getAutoconfigUrl($test));
         curl_setopt_array($curl, $options);
         $result = curl_exec($curl);
         
@@ -108,6 +122,22 @@ class PayplugAccountLoader
         $newFileContent = $dumper->dump(array_replace_recursive($parameters, $parametersArray), 2);
         
         file_put_contents($parametersFile, $newFileContent);
+    }
+    
+    /**
+     * Return autoconfig for environment
+     * 
+     * @param boolean $test
+     * 
+     * @return string
+     */
+    public function getAutoconfigUrl($test = false)
+    {
+        if ($test) {
+            return self::PAYPLUG_AUTOCONFIG_URL_TEST;
+        } else {
+            return self::PAYPLUG_AUTOCONFIG_URL;
+        }
     }
     
     /**
