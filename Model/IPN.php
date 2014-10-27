@@ -30,7 +30,7 @@ class IPN extends Transaction
      * 
      * @var string
      */
-    const PAYMENT_REFUNDED = 'refounded';
+    const PAYMENT_REFUNDED = 'refunded';
     
     /**
      * The new state of the transaction: 'paid' or 'refunded'.
