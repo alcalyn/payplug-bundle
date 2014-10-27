@@ -95,7 +95,7 @@ class PayplugIPNService
             ->setOrder($data['order'])
             ->setCustomData($data['custom_data'])
             ->setOrigin($data['origin'])
-            ->setIsSandbox($data['is_sandbox'])
+            ->setIsTest($data['is_test'])
         ;
     }
 }

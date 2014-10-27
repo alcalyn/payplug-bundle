@@ -11,7 +11,7 @@ Alcalyn\PayplugBundle\Model\IPN:
             type: integer
             column: id_transaction
             nullable: true
-        isSandbox:
+        isTest:
             type: boolean
-            column: is_sandbox
+            column: is_test
             nullable: true

@@ -48,11 +48,11 @@ class IPN extends Transaction
     private $idTransaction;
     
     /**
-     * If value is true, the payment was done in Sandbox (TEST) mode.
+     * If value is true, the payment was done in TEST (Sandbox) mode.
      * 
      * @var boolean
      */
-    private $isSandbox;
+    private $isTest;
 
     /**
      * Set state
@@ -101,26 +101,26 @@ class IPN extends Transaction
     }
     
     /**
-     * Set isSandbox
+     * Set isTest
      * 
-     * @param boolean $isSandbox
+     * @param boolean $isTest
      * @return IPN
      */
-    public function setIsSandbox($isSandbox)
+    public function setIsTest($isTest)
     {
-        $this->isSandbox = $isSandbox;
+        $this->isTest = $isTest;
         
         return $this;
     }
     
     /**
-     * Get isSandbox
+     * Get isTest
      * 
      * @return boolean
      */
-    public function getIsSandbox()
+    public function getIsTest()
     {
-        return $this->isSandbox;
+        return $this->isTest;
     }
     
     /**
