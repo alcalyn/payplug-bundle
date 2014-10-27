@@ -48,11 +48,8 @@ iUyRmxvY2FsaG9zdCUyRnBheXBsdWdfaXBu&sign=FqGPHJH5jkM5yJj9oUMVAMBwanZOfk3ahKrPyC5
 >
 > Copy command output to your **clipboard** from command by using:
 >
-> Linux: `php app/console payplug:generate:url 2500 | xclip` (you need xclip)
->
+> Linux: `php app/console payplug:generate:url 2500 | xclip` (you need xclip)<br />
 > Windows: `php app/console payplug:generate:url 2500 | clip`
->
-> Mac: Buy a computer
 
 
  - Generate a sandbox payment of 25 €
