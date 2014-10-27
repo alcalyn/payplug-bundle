@@ -14,7 +14,7 @@ before to persist the IPN instance in your database.
 
 ## Create your own IPN entity
 
-To, do that, just create your IPN class which extends Payplug IPN class:
+To do that, just create your IPN class which extends Payplug IPN class:
 
 ``` php
 <?php

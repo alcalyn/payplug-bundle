@@ -3,8 +3,10 @@ AlcalynPayplugBundle
 
 [Payplug](https://www.payplug.fr/) integration to symfony2.
 
+[![Latest Stable Version](https://poser.pugx.org/alcalyn/payplug-bundle/v/stable.svg)](https://packagist.org/packages/alcalyn/payplug-bundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alcalyn/payplug-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/alcalyn/payplug-bundle/?branch=master)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/5db1af60-63e4-40a6-bb5a-671725d9ac73/mini.png)](https://insight.sensiolabs.com/projects/5db1af60-63e4-40a6-bb5a-671725d9ac73)
+[![License](https://poser.pugx.org/alcalyn/payplug-bundle/license.svg)](https://packagist.org/packages/alcalyn/payplug-bundle)
 
 ## Installation
 
@@ -72,7 +74,7 @@ alcalyn_payplug:
         yourPrivateKey:     %payplug_account_yourPrivateKey%
 ```
 
-And theses lines into **parameters.yml**, and optionally into **parameters.yml.dist**:
+And these lines into **parameters.yml**, and optionally into **parameters.yml.dist**:
 
 ``` yaml
     payplug_account_url:                ~
@@ -109,6 +111,8 @@ for more informations about account configuration.
 > Your parameters.yml should looks like this:
 > [parameters.yml.example](https://github.com/alcalyn/payplug-bundle/blob/master/Resources/doc/parameters.yml.example)
 
+You can also [configure your TEST mode](https://github.com/alcalyn/payplug-bundle/blob/master/Resources/doc/test_mode.md).
+
 
 ## Basic usage:
 
@@ -139,9 +143,12 @@ AlcalynPayplugBundle dispatches
 [PayplugIPNEvent](https://github.com/alcalyn/payplug-bundle/blob/master/Event/PayplugIPNEvent.php)
 when an IPN is received.
 
+This event contains an instance of [IPN](https://github.com/alcalyn/payplug-bundle/blob/master/Model/IPN.php)
+that you can access by calling **PayplugIPNEvent::getIPN()**.
+
 So listen it like that:
 
-Create the listener class:
+ - Create the listener class:
 
 ``` php
 // src/Acme/AcmeBundle/EventListener/PaymentListener.php
@@ -164,7 +171,7 @@ class PaymentListener
 }
 ```
 
-Register your listener:
+ - Register your listener:
 
 ``` yaml
 # src/Acme/AcmeBundle/Resources/services.yml
@@ -178,8 +185,10 @@ services:
 
 ## Advanced usage:
 
+ - [Use TEST mode](https://github.com/alcalyn/payplug-bundle/blob/master/Resources/doc/test_mode.md)
  - [Extend IPN class](https://github.com/alcalyn/payplug-bundle/blob/master/Resources/doc/extend_ipn.md)
  - [Listen to malformed IPN](https://github.com/alcalyn/payplug-bundle/blob/master/Resources/doc/malformed_ipn.md)
+ - [Generate payment Url from command](https://github.com/alcalyn/payplug-bundle/blob/master/Resources/doc/generate_url_command.md)
 
 
 ## License
