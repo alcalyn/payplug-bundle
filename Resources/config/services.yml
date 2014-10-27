@@ -4,7 +4,7 @@ services:
         arguments:
             - %payplug.account.url%
             - %payplug.account.yourPrivateKey%
-            - %payplug.sandbox.account.url% # Try to inject only %payplug.sandbox%
+            - %payplug.sandbox.account.url%
             - %payplug.sandbox.account.yourPrivateKey%
             - %payplug.sandbox.enabled%
             - @router
