@@ -49,8 +49,13 @@ class AlcalynPayplugExtension extends Extension
     {
         $paramPrefix = 'payplug.sandbox.account.';
         
+        $container->setParameter('payplug.sandbox.enabled', false);
         $container->setParameter($paramPrefix.'url', null);
         $container->setParameter($paramPrefix.'yourPrivateKey', null);
+        
+        if (isset($config['sandbox']['enabled'])) {
+            $container->setParameter('payplug.sandbox.enabled', $config['sandbox']['enabled']);
+        }
         
         if (isset($config['sandbox']['account'])) {
             $sandbox = $config['sandbox']['account'];

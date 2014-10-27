@@ -23,6 +23,7 @@ alcalyn_payplug:
         yourPrivateKey:     %payplug_account_yourPrivateKey%
     # Sandbox parameters
     sandbox:
+        enabled:            true
         account:
             url:                %payplug_sandbox_account_test_url%
             yourPrivateKey:     %payplug_sandbox_account_yourPrivateKey%
@@ -42,6 +43,11 @@ And these lines into **parameters.yml**, and optionally into **parameters.yml.di
     payplug_sandbox_account_url:            ~
     payplug_sandbox_account_yourPrivateKey: ~
 ```
+
+> **Note**:
+>
+> Be careful to not let sandbox mode enabled in prod.<br />
+> So it is recommended to add sandbox configuration in **config_dev.yml**
 
 
 ### Loading account test parameters
@@ -65,14 +71,15 @@ php app/console payplug:account:update --test
 
 ## Test Payplug payment
 
-The process is the same, except that you have to generate the payment url with another service.
+The process is the same, except that the service will now use sandbox parameters.
 
 To see payments in your Payplug admin, you must go to TEST mode in your account configuration.
 
 
 ### Generating payment url
 
-At this time, you can generate payment urls by using service **payplug.payment.test**:
+At this time, you can generate test payment urls by enabling sandbox mode,
+or force the test mode in the `generateUrl` method:
 
 ``` php
 use Alcalyn\PayplugBundle\Model\Payment;
@@ -85,10 +92,11 @@ use Alcalyn\PayplugBundle\Model\Payment;
         $payment = new Payment(1600, Payment::EUROS);
 
         // Get Payplug payment service
-        $payplugPayment = $this->get('payplug.payment.test'); // Notice that we use another service
+        $payplugPayment = $this->get('payplug.payment');
 
         // Generate url
-        $payplugPayment->generateUrl($payment); // returns "https://www.payplug.fr/p/vyFD?data=...&sign=..."
+        $payplugPayment->generateUrl($payment); // returns url depending on the sandbox.enabled parameter
+        $payplugPayment->generateUrl($payment, true); // returns test url "https://www.payplug.fr/p/vyFD?data=...&sign=..."
     }
 ```
 
@@ -110,4 +118,4 @@ See
 ### Process IPNs
 
 IPN process is the same, except that the [IPN](https://github.com/alcalyn/payplug-bundle/blob/master/Model/IPN.php)
-instance you received in your listener has its **is_sandbox** field on **true**.
+instance you received in your listener has its **is_test** field on **true**.

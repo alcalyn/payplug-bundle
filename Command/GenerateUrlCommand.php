@@ -18,19 +18,13 @@ class GenerateUrlCommand extends Command
     private $paymentService;
     
     /**
-     * @var PayplugPaymentService
+     * @param PayplugPaymentService $paymentService
      */
-    private $testPaymentService;
-    
-    /**
-     * @param PayplugAccountLoader $payplugAccountLoader
-     */
-    public function __construct(PayplugPaymentService $paymentService, PayplugPaymentService $testPaymentService)
+    public function __construct(PayplugPaymentService $paymentService)
     {
         parent::__construct();
         
         $this->paymentService = $paymentService;
-        $this->testPaymentService = $testPaymentService;
     }
     
     protected function configure()
@@ -58,13 +52,9 @@ class GenerateUrlCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if ($input->getOption('test')) {
-            $paymentService = $this->testPaymentService;
-        } else {
-            $paymentService = $this->paymentService;
-        }
-        
+        $paymentService = $this->paymentService;
         $payment = $this->getPaymentFromInput($input);
+        $test = $input->getOption('test');
         
         if ($input->getOption('interactive')) {
             $this->fillWithInteractiveMode($payment, $input, $output);
@@ -72,9 +62,9 @@ class GenerateUrlCommand extends Command
         }
         
         if ($input->getOption('code')) {
-            $output->writeLn($this->getCodeToGeneratePayment($payment, $input->getOption('test')));
+            $output->writeLn($this->getCodeToGeneratePayment($payment, $test));
         } else {
-            $output->writeLn($paymentService->generateUrl($payment));
+            $output->writeLn($paymentService->generateUrl($payment, $test));
         }
     }
     
