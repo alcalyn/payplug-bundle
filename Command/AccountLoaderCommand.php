@@ -2,30 +2,14 @@
 
 namespace Alcalyn\PayplugBundle\Command;
 
-use Symfony\Component\Console\Command\Command;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Alcalyn\PayplugBundle\Exceptions\PayplugException;
-use Alcalyn\PayplugBundle\Services\PayplugAccountLoader;
 
-class AccountLoaderCommand extends Command
+class AccountLoaderCommand extends ContainerAwareCommand
 {
-    /**
-     * @var PayplugAccountLoader
-     */
-    private $payplugAccountLoader;
-    
-    /**
-     * @param PayplugAccountLoader $payplugAccountLoader
-     */
-    public function __construct(PayplugAccountLoader $payplugAccountLoader)
-    {
-        parent::__construct();
-        
-        $this->payplugAccountLoader = $payplugAccountLoader;
-    }
-    
     protected function configure()
     {
         $this
@@ -54,16 +38,17 @@ class AccountLoaderCommand extends Command
 
         try {
             $output->writeLn('');
+            $payplugAccountLoader = $this->getContainer()->get('payplug.account_loader');
             
             if (!$input->getOption('no-prod')) {
                 $output->write('Load account parameters... ');
-                $this->payplugAccountLoader->loadPayplugParameters($mail, $pass);
+                $payplugAccountLoader->loadPayplugParameters($mail, $pass);
                 $output->writeLn('     [OK]');
             }
             
             if ($input->getOption('test') || $input->getOption('no-prod')) {
                 $output->write('Load TEST account parameters... ');
-                $this->payplugAccountLoader->loadPayplugParameters($mail, $pass, true);
+                $payplugAccountLoader->loadPayplugParameters($mail, $pass, true);
                 $output->writeLn('[OK]');
             }
             

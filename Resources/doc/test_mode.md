@@ -25,7 +25,7 @@ alcalyn_payplug:
     sandbox:
         enabled:            true
         account:
-            url:                %payplug_sandbox_account_test_url%
+            url:                %payplug_sandbox_account_url%
             yourPrivateKey:     %payplug_sandbox_account_yourPrivateKey%
 ```
 
