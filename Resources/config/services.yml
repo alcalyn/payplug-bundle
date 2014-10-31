@@ -16,15 +16,3 @@ services:
     payplug.account_loader:
         class: Alcalyn\PayplugBundle\Services\PayplugAccountLoader
         arguments: [%kernel.root_dir%]
-
-    payplug.command.account_loader:
-        class: Alcalyn\PayplugBundle\Command\AccountLoaderCommand
-        arguments: [@payplug.account_loader]
-        tags:
-            -  { name: console.command }
-
-    payplug.command.generate_url:
-        class: Alcalyn\PayplugBundle\Command\GenerateUrlCommand
-        arguments: [@payplug.payment]
-        tags:
-            -  { name: console.command }

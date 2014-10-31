@@ -119,6 +119,7 @@ You can also [configure your TEST mode](https://github.com/alcalyn/payplug-bundl
 ### Generating payment url:
 
 ``` php
+<?php
 use Alcalyn\PayplugBundle\Model\Payment;
 
 // ...
@@ -151,6 +152,7 @@ So listen it like that:
  - Create the listener class:
 
 ``` php
+<?php
 // src/Acme/AcmeBundle/EventListener/PaymentListener.php
 
 namespace Acme\AcmeBundle\EventListener;

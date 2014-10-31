@@ -2,31 +2,15 @@
 
 namespace Alcalyn\PayplugBundle\Command;
 
-use Symfony\Component\Console\Command\Command;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
 use Alcalyn\PayplugBundle\Model\Payment;
-use Alcalyn\PayplugBundle\Services\PayplugPaymentService;
 
-class GenerateUrlCommand extends Command
+class GenerateUrlCommand extends ContainerAwareCommand
 {
-    /**
-     * @var PayplugPaymentService
-     */
-    private $paymentService;
-    
-    /**
-     * @param PayplugPaymentService $paymentService
-     */
-    public function __construct(PayplugPaymentService $paymentService)
-    {
-        parent::__construct();
-        
-        $this->paymentService = $paymentService;
-    }
-    
     protected function configure()
     {
         $this
@@ -52,7 +36,7 @@ class GenerateUrlCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $paymentService = $this->paymentService;
+        $paymentService = $this->getContainer()->get('payplug.payment');
         $payment = $this->getPaymentFromInput($input);
         $test = $input->getOption('test');
         
@@ -112,11 +96,7 @@ class GenerateUrlCommand extends Command
         }
         
         if (!$input->getOption('ipn-url')) {
-            if ($input->getOption('test')) {
-                $defaultIpn = $this->testPaymentService->getIpnUrl();
-            } else {
-                $defaultIpn = $this->paymentService->getIpnUrl();
-            }
+            $defaultIpn = $this->getContainer()->get('payplug.payment')->getIpnUrl();
             
             $v = $dialog->ask($output, $this->promptFormat('IPN url ['.$defaultIpn.']'), $defaultIpn);
             $payment->setIpnUrl($v);

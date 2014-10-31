@@ -25,7 +25,7 @@ alcalyn_payplug:
     sandbox:
         enabled:            true
         account:
-            url:                %payplug_sandbox_account_test_url%
+            url:                %payplug_sandbox_account_url%
             yourPrivateKey:     %payplug_sandbox_account_yourPrivateKey%
 ```
 
@@ -82,6 +82,7 @@ At this time, you can generate test payment urls by enabling sandbox mode,
 or force the test mode in the `generateUrl` method:
 
 ``` php
+<?php
 use Alcalyn\PayplugBundle\Model\Payment;
 
 // ...
