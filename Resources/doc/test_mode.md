@@ -82,6 +82,7 @@ At this time, you can generate test payment urls by enabling sandbox mode,
 or force the test mode in the `generateUrl` method:
 
 ``` php
+<?php
 use Alcalyn\PayplugBundle\Model\Payment;
 
 // ...
