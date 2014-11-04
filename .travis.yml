@@ -17,4 +17,4 @@ cache:
         - $COMPOSER_CACHE_DIR
 
 before_script:
-    - composer install --prefer-source --dev symfony/symfony:${SYMFONY_VERSION}
+    - composer require --prefer-source --dev symfony/symfony:${SYMFONY_VERSION}
