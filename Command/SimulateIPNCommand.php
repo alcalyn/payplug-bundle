@@ -40,9 +40,9 @@ class SimulateIPNCommand extends ContainerAwareCommand
     {
         $sandboxMode = $input->getOption('test');
         $malformed = $input->getOption('malformed');
-        $title = 'Dispatch '.($malformed ? 'malformed ' : '').'IPN event'.($sandboxMode ? ' (sandbox mode)' : '').'...';
+        $ipnTitle = ($malformed ? 'malformed ' : '').'IPN event'.($sandboxMode ? ' (sandbox mode)' : '');
         
-        $this->writeTitle($output, $title);
+        $this->writeTitle($output, 'Dispatch '.$ipnTitle.'...');
         
         if (!$malformed) {
             $data = $this->getIPNData($input);
@@ -118,8 +118,6 @@ class SimulateIPNCommand extends ContainerAwareCommand
      */
     private function createMalformedIPNRequest(InputInterface $input)
     {
-        $sandboxMode = $input->getOption('test');
-        
         $callbackUrl = $this->getContainer()->get('router')->generate('payplug_ipn');
         $content = json_encode($this->getIPNData($input));
         $payplugSignature = base64_encode('Malformed signature');
