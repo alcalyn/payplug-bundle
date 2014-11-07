@@ -56,16 +56,14 @@ class PayplugPaymentService
      * @param string $testBaseUrl
      * @param string $testPrivateKey
      * @param boolean $testEnabled
-     * @param Router $router
      */
-    public function __construct($baseUrl, $privateKey, $testBaseUrl, $testPrivateKey, $testEnabled, Router $router)
+    public function __construct($baseUrl, $privateKey, $testBaseUrl, $testPrivateKey, $testEnabled)
     {
         $this->baseUrl = $baseUrl;
         $this->privateKey = $privateKey;
         $this->testBaseUrl = $testBaseUrl;
         $this->testPrivateKey = $testPrivateKey;
         $this->testEnabled = $testEnabled;
-        $this->ipnUrl = $router->generate('payplug_ipn', array(), true);
     }
     
     /**
@@ -111,8 +109,11 @@ class PayplugPaymentService
             throw new PayplugUndefinedAccountParameterException('payplug_'.$testParam.'account_url');
         }
         
-        // Create data parameter
+        // Prepare payment parameters
+        $this->affectDefaultIpnUrlToPayment($payment);
         $params = $this->convertPaymentToArray($payment);
+        
+        // Create data parameter
         $url_params = http_build_query($params);
         $data = urlencode(base64_encode($url_params));
         
@@ -136,7 +137,50 @@ class PayplugPaymentService
     }
     
     /**
-     * @param \Alcalyn\PayplugBundle\Model\Payment $payment
+     * Set default ipn url used by the bundle (Something like "http://yoursite.com/payplug_ipn").
+     * 
+     * @param string $ipnUrl
+     * 
+     * @return PayplugPaymentService
+     */
+    public function setIpnUrl($ipnUrl)
+    {
+        $this->ipnUrl = $ipnUrl;
+        
+        return $this;
+    }
+    
+    /**
+     * Set default ipn url used by the bundle
+     * based on the ipn route payplug_ipn.
+     * 
+     * @param Router $router
+     * 
+     * @return PayplugPaymentService
+     */
+    public function setIpnUrlFromRouter(Router $router)
+    {
+        return $this->setIpnUrl($router->generate('payplug_ipn', array(), true));
+    }
+    
+    /**
+     * Set automatically ipn url to the default used by this bundle if not set by user
+     * 
+     * @param Payment $payment
+     * 
+     * @return PayplugPaymentService
+     */
+    private function affectDefaultIpnUrlToPayment(Payment $payment)
+    {
+        if (null === $payment->getIpnUrl()) {
+            $payment->setIpnUrl($this->getIpnUrl());
+        }
+        
+        return $this;
+    }
+    
+    /**
+     * @param Payment $payment
      * 
      * @return array
      */
@@ -145,7 +189,7 @@ class PayplugPaymentService
         return array(
             'amount'        => $payment->getAmount(),
             'currency'      => $payment->getCurrency(),
-            'ipn_url'       => $payment->getIpnUrl() ?: $this->ipnUrl,
+            'ipn_url'       => $payment->getIpnUrl(),
             'return_url'    => $payment->getReturnUrl(),
             'cancel_url'    => $payment->getCancelUrl(),
             'email'         => $payment->getEmail(),

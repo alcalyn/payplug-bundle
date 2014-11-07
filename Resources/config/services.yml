@@ -7,7 +7,8 @@ services:
             - %payplug.sandbox.account.url%
             - %payplug.sandbox.account.yourPrivateKey%
             - %payplug.sandbox.enabled%
-            - @router
+        calls:
+            - [setIpnUrlFromRouter, ["@router"]]
         
     payplug.ipn:
         class: Alcalyn\PayplugBundle\Services\PayplugIPNService
