@@ -83,6 +83,7 @@ class PayplugIPNService
     public function createIPNFromData(array $data)
     {
         $ipn = new $this->ipnClass();
+        $data = $this->provideDefaultIPNValues($data);
         
         return $ipn
             ->setState($data['state'])
@@ -97,5 +98,34 @@ class PayplugIPNService
             ->setOrigin($data['origin'])
             ->setIsTest($data['is_test'])
         ;
+    }
+    
+    /**
+     * Provide default values to ensure backward compatibility
+     * (i.e when Payplug change or remove a field, avoid blockant exception)
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    private function provideDefaultIPNValues(array $data)
+    {
+        $defaults = array(
+            'status' => null,
+            'origin' => null,
+            'last_name' => null,
+            'custom_datas' => null,
+            'customer' => null,
+            'first_name' => null,
+            'amount' => null,
+            'email' => null,
+            'state' => null,
+            'custom_data' => null,
+            'id_transaction' => null,
+            'order' => null,
+            'is_test' => null,
+        );
+        
+        return array_merge($defaults, $data);
     }
 }

@@ -4,17 +4,18 @@ namespace Alcalyn\PayplugBundle\Tests\Services;
 
 use Alcalyn\PayplugBundle\Model\Payment;
 use Alcalyn\PayplugBundle\Services\PayplugPaymentService;
+use Alcalyn\PayplugBundle\Tests\Parameters;
 
 class PayplugPaymentServiceTest extends \PHPUnit_Framework_TestCase
 {
     private function createPayplugPaymentService($sandbox)
     {
-        $baseUrl = 'https://www.payplug.fr/p/baseurl';
-        $privateKey = file_get_contents(__DIR__.'/../SSLTestKeys/private.key');
+        $baseUrl = Parameters::URL;
+        $privateKey = Parameters::getPrivateKey();
         $defaultIpnUrl = 'http://my-website.com/payplug_ipn';
         
-        $baseUrlTest = 'https://www.payplug.fr/p/baseurltest';
-        $privateKeyTest = file_get_contents(__DIR__.'/../SSLTestKeys/private_test.key');
+        $baseUrlTest = Parameters::TEST_URL;
+        $privateKeyTest = Parameters::getTestPrivateKey();
 
         $paymentService = new PayplugPaymentService(
                 $baseUrl,
