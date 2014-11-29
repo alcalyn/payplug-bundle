@@ -8,7 +8,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Alcalyn\PayplugBundle\Model\Payment;
 use Alcalyn\PayplugBundle\Model\IPN;
 use Alcalyn\PayplugBundle\Event\PayplugIPNEvent;
 use Alcalyn\PayplugBundle\Event\PayplugMalformedIPNEvent;
