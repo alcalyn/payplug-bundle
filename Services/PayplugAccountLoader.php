@@ -113,7 +113,7 @@ class PayplugAccountLoader
      */
     public function editParameters(array $parametersArray)
     {
-        $parametersFile = $this->rootDir.'../config/parameters.yml';
+        $parametersFile = $this->rootDir.'/config/parameters.yml';
         
         $parser = new Parser();
         $dumper = new Dumper();
