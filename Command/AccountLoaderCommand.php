@@ -39,18 +39,19 @@ class AccountLoaderCommand extends ContainerAwareCommand
         try {
             $output->writeLn('');
             $payplugAccountLoader = $this->getContainer()->get('payplug.account_loader');
-            
-            if (!$input->getOption('no-prod')) {
-                $output->write('Load account parameters... ');
-                $payplugAccountLoader->loadPayplugParameters($mail, $pass);
-                $output->writeLn('     [OK]');
-            }
-            
-            if ($input->getOption('test') || $input->getOption('no-prod')) {
+
+            if ($input->getOption('test')) {
                 $output->write('Load TEST account parameters... ');
-                $payplugAccountLoader->loadPayplugParameters($mail, $pass, true);
-                $output->writeLn('[OK]');
+            } else {
+                $output->write('Load account parameters... ');
             }
+            $payplugAccountLoader->loadPayplugParameters(
+                $mail,
+                $pass,
+                $input->getOption('test'),
+                $input->getOption('no-prod')
+            );
+            $output->writeLn('[OK]');
             
             $output->writeLn('');
             $output->writeLn('[OK] Parameters successfully loaded.');

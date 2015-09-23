@@ -43,10 +43,11 @@ class PayplugAccountLoader
      * @param string $mail
      * @param string $pass
      * @param boolean $test
+     * @param boolean $noprod
      * 
      * @throws PayplugException on curl or authentication error
      */
-    public function loadPayplugParameters($mail, $pass, $test = false)
+    public function loadPayplugParameters($mail, $pass, $test = false, $noprod = false)
     {
         $result = $this->curlPayplugRequest($mail, $pass, $test);
         
@@ -64,13 +65,14 @@ class PayplugAccountLoader
         
         $payplugAccount = array();
         
-        if ($test) {
-            $payplugAccount['parameters']['payplug_sandbox_account_url'] = $params->url;
-            $payplugAccount['parameters']['payplug_sandbox_account_yourPrivateKey'] = $params->yourPrivateKey;
-        } else {
+        if (!$noprod) {
             foreach ($params as $key => $value) {
                 $payplugAccount['parameters']['payplug_account_'.$key] = $value;
             }
+        }
+        if ($test) {
+            $payplugAccount['parameters']['payplug_sandbox_account_url'] = $params->url;
+            $payplugAccount['parameters']['payplug_sandbox_account_yourPrivateKey'] = $params->yourPrivateKey;
         }
         
         $this->editParameters($payplugAccount);
