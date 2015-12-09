@@ -58,6 +58,7 @@ You can load them by running this command:
 php app/console payplug:account:update --test
 ```
 
+If you just want to load sandbox parameters whithout loading common parameters, you can add the `--no-prod` flag.
 
 > **Note**:
 >
