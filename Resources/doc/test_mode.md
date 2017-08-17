@@ -46,7 +46,7 @@ And these lines into **parameters.yml**, and optionally into **parameters.yml.di
 
 > **Note**:
 >
-> Be careful to not let sandbox mode enabled in prod.<br />
+> Be careful not to let sandbox mode enabled in prod.<br />
 > So it is recommended to add sandbox configuration in **config_dev.yml**
 
 
